@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="6" passed="6" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-04-24T15:55:13 IST" name="Default suite" finished-at="2025-04-24T15:56:51 IST" duration-ms="98843">
+    <groups>
+    </groups>
+    <test started-at="2025-04-24T15:55:13 IST" name="Default test" finished-at="2025-04-24T15:56:51 IST" duration-ms="98843">
+      <class name="Scary.Testing.Box">
+        <test-method is-config="true" signature="SignIn()[pri:0, instance:Scary.Testing.Box@2ceb80a1]" started-at="2025-04-24T15:55:13 IST" name="SignIn" finished-at="2025-04-24T15:55:16 IST" duration-ms="3036" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SignIn -->
+        <test-method signature="Createdoc()[pri:1, instance:Scary.Testing.Box@2ceb80a1]" started-at="2025-04-24T15:55:16 IST" name="Createdoc" finished-at="2025-04-24T15:56:02 IST" duration-ms="45956" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Createdoc -->
+        <test-method signature="CreateDocFromFile()[pri:2, instance:Scary.Testing.Box@2ceb80a1]" started-at="2025-04-24T15:56:02 IST" name="CreateDocFromFile" finished-at="2025-04-24T15:56:23 IST" depends-on-methods="Scary.Testing.Box.Createdoc" duration-ms="21815" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CreateDocFromFile -->
+        <test-method signature="MakeACopy()[pri:3, instance:Scary.Testing.Box@2ceb80a1]" started-at="2025-04-24T15:56:23 IST" name="MakeACopy" finished-at="2025-04-24T15:56:37 IST" depends-on-methods="Scary.Testing.Box.Createdoc" duration-ms="13347" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- MakeACopy -->
+        <test-method signature="TextEntering()[pri:4, instance:Scary.Testing.Box@2ceb80a1]" started-at="2025-04-24T15:56:37 IST" name="TextEntering" finished-at="2025-04-24T15:56:37 IST" depends-on-methods="Scary.Testing.Box.Createdoc" duration-ms="610" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TextEntering -->
+        <test-method signature="InsertDrawing()[pri:5, instance:Scary.Testing.Box@2ceb80a1]" started-at="2025-04-24T15:56:37 IST" name="InsertDrawing" finished-at="2025-04-24T15:56:51 IST" depends-on-methods="Scary.Testing.Box.Createdoc" duration-ms="13986" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- InsertDrawing -->
+        <test-method signature="Hello()[pri:6, instance:Scary.Testing.Box@2ceb80a1]" started-at="2025-04-24T15:56:51 IST" name="Hello" finished-at="2025-04-24T15:56:51 IST" duration-ms="2" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Hello -->
+      </class> <!-- Scary.Testing.Box -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
