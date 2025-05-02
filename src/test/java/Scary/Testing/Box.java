@@ -29,6 +29,7 @@ public class Box {
 	
 	
 	WebDriver driver = new ChromeDriver();
+		
 	Random random = new Random();
 	String DocumentName ="apr10"+random.nextInt(9999);
 	String GoogleEmail = "user1@boxengsandbox.com";
@@ -36,7 +37,10 @@ public class Box {
 	
 	@BeforeClass
 	public void SignIn(){
+//		WebDriver driver = new ChromeDriver();
 		driver.get("https://boxfordocs.app.box.com/folder/0");
+//		WebDriver profiledriver = new ChromeDriver(SetChrome.getChromeSetup());
+//		profiledriver.get("https://www.google.com");
 		driver.manage().window().maximize();
 		Signin sn = new Signin(driver);
 		sn.login();
@@ -71,6 +75,9 @@ public class Box {
 		
 //		loging in using the credentials
 		sn.GoogleLogin(GoogleEmail,TrustedMail);
+//		
+//		WebDriver profiledriver = new ChromeDriver(SetChrome.getChromeSetup());
+//		profiledriver.get("https:www.google.com");
 //		
 		wh.switchTo(DocumentName);
 		
@@ -140,12 +147,49 @@ public class Box {
 	public void InsertDrawing() throws InterruptedException {
 		DocumentHomePage dhm = new DocumentHomePage(driver);
 		dhm.DrwaingInsert();
+		boolean Checked = dhm.DocumentCheck();
+		Assert.assertTrue(Checked);
+		//switching the driver to the default content because documentcheck method returns boolean and i am unable to switch to default content in that method itself
+		driver.switchTo().defaultContent();
+	}
+//	
+	@Test(priority=6)
+	public void comment() throws InterruptedException {
+		DocumentHomePage dhm = new DocumentHomePage(driver);
+		dhm.InsertComment();
+		boolean Checked = dhm.DocumentCheck();
+		Assert.assertTrue(Checked);
+		
+		//switching the driver to the default content because documentcheck method returns boolean and i am unable to switch to default content in that method itself
+		driver.switchTo().defaultContent();
+	}
+//	
+	@Test(priority=7)
+	public void InsertHorizontalLine() throws InterruptedException {
+		DocumentHomePage dhm = new DocumentHomePage(driver);
+		dhm.HorizontalLine();
+		boolean Checked = dhm.DocumentCheck();
+		Assert.assertTrue(Checked);
+		//switching the driver to the default content because documentcheck method returns boolean and i am unable to switch to default content in that method itself
+		driver.switchTo().defaultContent();
+		}
+	
+	@Test(priority=8)
+	public void InsertSpecialCharacter() throws InterruptedException {
+		DocumentHomePage dhm = new DocumentHomePage(driver);
+		dhm.SpecialCharacters();
+		boolean Checked = dhm.DocumentCheck();
+		Assert.assertTrue(Checked);
+		//switching the driver to the default content because documentcheck method returns boolean and i am unable to switch to default content in that method itself
+		driver.switchTo().defaultContent();
 	}
 	
-	@Test(priority=6)
-	public void Hello() {
-		System.out.println("hello world mr marturi");
-	}
+	
+	
+//	@Test(priority=7)
+//	public void close() {
+//		driver.quit();
+//	}
 ////	
 //	
 ////	@AfterMethod
