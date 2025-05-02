@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,7 +27,7 @@ public class DocumentHomePage extends BasePage {
 	By DrawingCss = By.cssSelector("#\\:7q > div");
 	By DrawingFrame = By.xpath("//iframe[contains(@name,'xpcpeer')]");
 	By DrawingShapeBut = By.xpath("//*[@id=\"shapeButton\"]");
-	By DrawingShapes = By.xpath("//*[@id=\\\"goog-palette-cell-45\\\"]");
+	By DrawingShape = By.xpath("//*[@id=\"goog-palette-cell-45\"]");
 	By DrawingBoard = By.xpath("//*[@id=\"editor-p-bg\"]");
 	By DrawingSaveCloseButX = By.xpath("/html/body/div[52]/div[2]/div/div/div/div/div[2]/button");
 	By DrawingSaveCloseButCss = By.cssSelector("body > div.javascriptMaterialdesignGm3WizDialog-dialog.javascriptMaterialdesignGm3WizDialog-dialog--sheet.javascriptMaterialdesignGm3WizDialog-dialog--no-content-padding.sketchyUnnestedDialogFloatingSheetContainer.javascriptMaterialdesignGm3WizDialog-dialog--open.javascriptMaterialdesignGm3WizDialog-dialog--scrollable > div.javascriptMaterialdesignGm3WizDialog-dialog__container > div > div > div > div > div.mdc-touch-target-wrapper > button");
@@ -43,6 +44,18 @@ public class DocumentHomePage extends BasePage {
 	By TextBodyiframeCss = By.cssSelector("body > iframe.docs-texteventtarget-iframe.docs-offscreen-z-index.docs-texteventtarget-iframe-negative-top");
 	By DocumentContent = By.xpath("//div[@role='textbox']");
 	By HeadingStyles = By.xpath("//*[@id=\"headingStyleSelect\"]");
+	By CommentBut = By.xpath("//*[@id=\"docos-stream-view\"]/div[1]/div[1]/div[2]/div[9]/div[1]");
+	
+	By HorizontalLine = By.xpath("//*[@id=\":7s\"]");
+	By SpecialCharacter = By.xpath("//*[@id=\":80\"]");
+	By SpChar1 = By.xpath("//div[contains(text(),'←')]");
+	//*[@id="2wu7gr:1ac.contentEl"]/div[2]/div/div/div/div/div[1]
+//	By SpChar1Css = By.cssSelector("#\\35 2en2r\\:1bb\\.contentEl > div.ita-cp-cell.ita-cp-left-cell > div > div > div > div > div:nth-child(1)");
+	By SpChar2 = By.xpath("//div[contains(text(),'↑')]");
+	By SpChar3 = By.xpath("//div[contains(text(),'→')]");
+	By SpCharCancel = By.xpath("//div[@class='modal-dialog ita-cp-whole-pad']//span[@class='modal-dialog-title-close']");
+//	/html/body/div[53]/div[1]/span[2]
+	
 	public DocumentHomePage(WebDriver driver) {
 		super(driver);
 	}
@@ -90,6 +103,7 @@ public class DocumentHomePage extends BasePage {
 //		}
 		Thread.sleep(5000);
 		return isEnabled(VersionHistorySym);
+		
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -116,7 +130,7 @@ public class DocumentHomePage extends BasePage {
 //		List<WebElement> elemen = WaitForElementsForFrames(iframeCheck);
 //		System.out.println(elemen.size()); //7
 		
-		
+		Actions action = new Actions(driver);
 		SwitchToIframe(DocumentBodyFrame);
 			
 		try {
@@ -154,11 +168,12 @@ public class DocumentHomePage extends BasePage {
 		action.moveToElement(element).click().build().perform();
 		action.moveByOffset(0, 25).click().build().perform();
 		Thread.sleep(2000);
-		WebElement element2 = WaitForElementForFrame(By.xpath("//*[@id=\"goog-palette-cell-45\"]"));
+		WebElement element2 = WaitForElementForFrame(DrawingShape);
 		action.click(element2).build().perform();
 		WebElement element3 = WaitForElementForFrame(DrawingBoard);
 		action.click(element3).build().perform();
 		driver.switchTo().parentFrame();
+		Thread.sleep(5000);
 		
 		try {
 			WebElement element4 = WaitForElementForFrame(DrawingSaveCloseButCss);
@@ -167,7 +182,83 @@ public class DocumentHomePage extends BasePage {
 			WebElement element4 = WaitForElementForFrame(DrawingSaveCloseButX);
 			action.moveToElement(element4).click().build().perform();
 		}
+		try {
+			//Switching to the body for clicking enter
+			SwitchToIframe(TextBodyiframex);
+			TimesClickEnter(3);
+		}catch(Exception e) {
+			SwitchToIframe(TextBodyiframeCss);
+			TimesClickEnter(3);
+		}
+		driver.switchTo().defaultContent();
 				
+	}
+	
+	public void InsertComment() throws InterruptedException {
+		Actions action = new Actions(driver);
+		SwitchToIframe(DocumentBodyFrame);
+		try {
+			SwitchToIframe(TextBodyiframex);
+		}catch(Exception e) {
+			SwitchToIframe(TextBodyiframeCss);
+		}
+		
+		sendkeys(DocumentContent,"anil marturi");
+		sendkeys(DocumentContent,"Jai Shri Ram");
+		action.sendKeys(Keys.RETURN).build().perform();
+//		sendkeys(DocumentContent,"anil marturi");
+		WebElement element = WaitForElement(DocumentContent);
+		action.doubleClick(element).click().build().perform();
+		action.keyDown(Keys.CONTROL).keyDown(Keys.ALT).sendKeys("m").keyUp(Keys.CONTROL).keyUp(Keys.ALT).build().perform();
+		action.sendKeys("this is the automated comment").build().perform();
+		driver.switchTo().parentFrame();
+		click(CommentBut);
+		try {
+			SwitchToIframe(TextBodyiframex);
+		}catch(Exception e) {
+			SwitchToIframe(TextBodyiframeCss);
+		}
+//		Thread.sleep(2000);
+		action.moveToElement(element, 10, 10).click().build().perform();
+		TimesClickEnter(3);
+		driver.switchTo().defaultContent();
+	}
+	public void HorizontalLine() throws InterruptedException {
+		SwitchToIframe(DocumentBodyFrame);
+		click(InsertMenu);
+		Thread.sleep(2000);
+		click(HorizontalLine);
+		TimesClickEnter(3);
+		driver.switchTo().defaultContent();
+		
+	}
+	public void SpecialCharacters() throws InterruptedException {
+		SwitchToIframe(DocumentBodyFrame);
+		click(InsertMenu);
+		Thread.sleep(2000);
+		click(SpecialCharacter);
+		Thread.sleep(2000);
+		Actions action = new Actions(driver);
+//		action.sendKeys("car").click().build().perform();
+		click(SpChar1);		
+		click(SpChar2);
+		click(SpChar3);
+		Thread.sleep(5000);
+		WebElement el = WaitForElement(SpCharCancel);
+		System.out.println("Height: " + el.getSize().getHeight());
+		System.out.println("Width: " + el.getSize().getWidth());
+		System.out.println("Displayed: " + el.isDisplayed());
+//		click(By.xpath("(//div[@class='modal-dialog-title modal-dialog-title-draggable'])[2]"));
+		
+//		WebElement closeBtn = driver.findElement(By.xpath("//span[@class='modal-dialog-title-close']"));
+//		((JavascriptExecutor) driver).executeScript("arguments[0].click();", closeBtn);
+
+		
+		action.moveToElement(el, 5, 5).click().build().perform();
+		
+//		click(SpCharCancel);
+		TimesClickEnter(3);
+		driver.switchTo().defaultContent();	
 	}
 	
 	
